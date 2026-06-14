@@ -15,13 +15,27 @@ const app = exp();
 
 
 // CORS
-const allowedOrigins = [
-    "http://localhost:5173",
-    process.env.FRONTEND_URL
-].filter(Boolean);
-
 app.use(cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        
+        const allowed = [
+            "http://localhost:5173",
+            process.env.FRONTEND_URL
+        ].filter(Boolean);
+        
+        const normalizedOrigin = origin.replace(/\/$/, "");
+        const isAllowed = allowed.some(allowedOrigin => {
+            return allowedOrigin.replace(/\/$/, "") === normalizedOrigin;
+        });
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            console.error(`CORS Blocked: Origin "${origin}" is not in allowed list:`, allowed);
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     credentials: true
 }));
 
