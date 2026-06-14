@@ -1,0 +1,206 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Sunrise Glass (Light Mode) */
+  --bg-app: #FFF9F5;
+  --bg-surface: #FFFFFF;
+  --bg-card: rgba(255, 255, 255, 0.7);
+  --color-primary: #FF6B35;
+  --color-secondary: #FFB703;
+  --color-accent: #3A86FF;
+  --color-text-main: #0F172A; /* Richer dark slate for higher contrast */
+  --color-text-muted: #475569; /* Darker grey for better readability */
+  --border-color: rgba(255, 107, 53, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 107, 53, 0.05);
+  --neon-glow: 0 4px 20px rgba(255, 107, 53, 0.06);
+}
+
+.dark {
+  /* Cyber Galaxy (Dark Mode) */
+  --bg-app: #0A0A0F;
+  --bg-surface: #13131A;
+  --bg-card: #1B1B26;
+  --color-primary: #8B5CF6;
+  --color-secondary: #06B6D4;
+  --color-accent: #EC4899;
+  --color-text-main: #F8FAFC;
+  --color-text-muted: #CBD5E1; /* Brighter grey for high visibility */
+  --border-color: rgba(139, 92, 246, 0.15);
+  --glass-bg: rgba(19, 19, 26, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --neon-glow: 0 0 25px rgba(139, 92, 246, 0.25);
+}
+
+@theme {
+  --color-bg-app: var(--bg-app);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-card: var(--bg-card);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-border-custom: var(--border-color);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --shadow-neon: var(--neon-glow);
+}
+
+/* Custom Keyframe Animations for SaaS UI */
+@keyframes slideIn {
+  from {
+    transform: translateY(-1rem) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes toastProgress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
+  }
+}
+
+@keyframes rotate-aurora {
+  0% {
+    transform: rotate(0deg) translate(0px, 0px);
+  }
+  50% {
+    transform: rotate(180deg) translate(50px, 20px);
+  }
+  100% {
+    transform: rotate(360deg) translate(0px, 0px);
+  }
+}
+
+/* Custom Utilities */
+.animate-slide-in {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-toast-progress {
+  animation: toastProgress linear forwards;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-rotate-aurora-slow {
+  animation: rotate-aurora 25s infinite linear;
+}
+
+.animate-rotate-aurora-fast {
+  animation: rotate-aurora 18s infinite linear reverse;
+}
+
+/* Glassmorphism custom classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+}
+
+/* Scrollbar Customization for modern look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.4);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.25);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.45);
+}
+
+/* Hide inputs for style reasons */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.9);
+}
+
+/* Text Gradients */
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 50%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium Neon Glow Highlights */
+.neon-glow-hover:hover {
+  box-shadow: var(--neon-glow);
+  border-color: var(--color-primary);
+}
+
+/* Smooth active transitions */
+* {
+  transition-property: background-color, border-color, text-decoration-color, fill, stroke, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Select Option styling for custom colors and theme consistency */
+select option {
+  background-color: var(--bg-surface);
+  color: var(--color-text-main);
+}

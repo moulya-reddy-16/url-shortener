@@ -1,0 +1,29 @@
+### REGISTER USER
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Moulya",
+  "email": "moulya@mail.com",
+  "password": "123456",
+  "role": "user"
+}
+
+
+### LOGIN USER
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "moulya@mail.com",
+  "password": "123456"
+}
+
+
+### LOGOUT USER
+POST http://localhost:5000/api/auth/logout 
+
+
+### LOGOUT USER WITH TOKEN
+POST http://localhost:5000/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODQ0MzAsImV4cCI6MTc4MDU4ODAzMH0.484uJUluvXvUP92ZESjwaqqCy9246Y08XSo8XCFz_RU

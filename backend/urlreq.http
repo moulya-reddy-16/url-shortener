@@ -1,0 +1,70 @@
+### CREATE SHORT URL
+
+POST http://localhost:5000/api/url/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+{
+  "originalUrl": "https://www.youtube.com",
+  "category": "Study",
+  "oneTime": false
+}
+
+
+### GET MY URLS
+
+GET http://localhost:5000/api/url/my-urls
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+
+### GET URL BY ID
+
+GET http://localhost:5000/api/url/6a21a4731bd269b6e9a9b86c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+
+### UPDATE URL
+
+PATCH http://localhost:5000/api/url/6a21a4731bd269b6e9a9b86c
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+{
+  "category": "Entertainment",
+  "oneTime": true
+}
+
+
+### DELETE URL
+
+DELETE http://localhost:5000/api/url/6a21a4731bd269b6e9a9b86c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+
+### URL ANALYTICS
+
+GET http://localhost:5000/api/url/analytics/6a21a4731bd269b6e9a9b86c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMjE4ZWNmMWEzNTRkZjAxNDEwZWIyOCIsImVtYWlsIjoibW91bHlhQG1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODA1ODkzODAsImV4cCI6MTc4MDU5Mjk4MH0.f2k-y4SCW99bkaypwLIfFF2iFtRs0-f0maOeJqzimvI
+
+
+### REDIRECT SHORT URL
+
+GET http://localhost:5000/api/url/r/hR08AZ6
+
+
+### ADMIN - GET ALL URLS
+
+GET http://localhost:5000/api/url/admin/all
+Authorization: Bearer <ADMIN_TOKEN>
+
+
+### ADMIN - DELETE ANY URL
+
+DELETE http://localhost:5000/api/url/admin/6a21a4731bd269b6e9a9b86c
+Authorization: Bearer <ADMIN_TOKEN>
+
+
+### ADMIN - PLATFORM ANALYTICS
+
+GET http://localhost:5000/api/url/admin/analytics
+Authorization: Bearer <ADMIN_TOKEN>
