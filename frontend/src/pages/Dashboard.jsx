@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { api } from "../utils/api.js";
+import { api, HOST_URL } from "../utils/api.js";
 import { useToast } from "../context/ToastContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import QRCode from "qrcode";
@@ -199,6 +199,9 @@ export default function Dashboard() {
   };
 
   const getShortUrlPrefix = () => {
+    if (import.meta.env.VITE_API_BASE_URL) {
+      return `${HOST_URL}/api/url/r/`;
+    }
     const host = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname;
     return `http://${host}:5000/api/url/r/`;
   };

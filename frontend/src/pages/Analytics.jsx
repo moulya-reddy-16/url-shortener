@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { api } from "../utils/api.js";
+import { api, HOST_URL } from "../utils/api.js";
 import { useToast } from "../context/ToastContext.jsx";
 import { useTheme } from "../context/ThemeContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
@@ -162,7 +162,7 @@ export default function Analytics() {
           <h1 className="text-2xl font-black text-text-main flex items-center gap-2">
             {shortCode}
             <a 
-              href={`http://${window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname}:5000/api/url/r/${shortCode}`} 
+              href={`${import.meta.env.VITE_API_BASE_URL ? HOST_URL : `http://${window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname}:5000`}/api/url/r/${shortCode}`} 
               target="_blank" 
               rel="noreferrer"
               className="text-primary hover:text-accent transition-colors"

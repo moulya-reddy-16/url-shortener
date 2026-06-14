@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { api } from "../utils/api.js";
+import { api, HOST_URL } from "../utils/api.js";
 import { useToast } from "../context/ToastContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import { 
@@ -176,7 +176,7 @@ export default function AdminDashboard() {
                       <tr key={url._id} className="hover:bg-bg-surface/25 transition-colors">
                         <td className="py-3.5 px-6 font-extrabold text-text-main">
                           <a 
-                            href={`http://${window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname}:5000/api/url/r/${url.shortCode}`} 
+                            href={`${import.meta.env.VITE_API_BASE_URL ? HOST_URL : `http://${window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname}:5000`}/api/url/r/${url.shortCode}`} 
                             target="_blank" 
                             rel="noreferrer"
                             className="hover:text-primary hover:underline flex items-center gap-1.5"

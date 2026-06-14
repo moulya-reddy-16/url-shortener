@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../context/ToastContext.jsx";
-import { api } from "../utils/api.js";
+import { api, BASE_URL, HOST_URL } from "../utils/api.js";
 import { User, Mail, Key, Lock, X, Camera, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import GlassCard from "../components/GlassCard.jsx";
@@ -16,7 +16,13 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
 
   // Profile Image States
-  const [profileImage, setProfileImage] = useState(user?.profileImage || "");
+  const [profileImage, setProfileImage] = useState(
+    user?.profileImage
+      ? user.profileImage.startsWith("http") || user.profileImage.startsWith("blob:")
+        ? user.profileImage
+        : `${HOST_URL}${user.profileImage}`
+      : ""
+  );
   const [imageUploading, setImageUploading] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -51,7 +57,7 @@ export default function Profile() {
 
     setImageUploading(true);
     try {
-      const res = await fetch(`http://${window.location.hostname}:5000/api/auth/upload-profile-image`, {
+      const res = await fetch(`${BASE_URL}/auth/upload-profile-image`, {
         method: "POST",
         credentials: "include",
         body: formData,
@@ -64,12 +70,18 @@ export default function Profile() {
 
       const data = await res.json();
       // Replace preview with permanent URL
-      setProfileImage(`http://${window.location.hostname}:5000${data.profileImage}`);
+      setProfileImage(`${HOST_URL}${data.profileImage}`);
       if (updateUserState) updateUserState(data.user);
       toast.success("Profile image updated!");
     } catch (err) {
       toast.error(err.message || "Failed to upload image.");
-      setProfileImage(user?.profileImage || ""); // revert
+      setProfileImage(
+        user?.profileImage
+          ? user.profileImage.startsWith("http") || user.profileImage.startsWith("blob:")
+            ? user.profileImage
+            : `${HOST_URL}${user.profileImage}`
+          : ""
+      ); // revert
     } finally {
       setImageUploading(false);
       // reset file input so same file can be re-selected
