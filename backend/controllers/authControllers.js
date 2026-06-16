@@ -43,7 +43,8 @@ export const registerUser = async (req, res, next) => {
     await newUserDoc.save();
 
     // Log verification link to console for mock email
-    const verificationLink = `http://localhost:5173/verify-email/${verificationToken}`;
+    const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+    const verificationLink = `${frontendUrl}/verify-email/${verificationToken}`;
     console.log(`\n=== MOCK EMAIL SENT ===\nTo: ${email}\nSubject: Verify Email\nLink: ${verificationLink}\n========================\n`);
 
     res.status(201).json({ 

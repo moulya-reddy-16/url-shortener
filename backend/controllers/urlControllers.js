@@ -426,26 +426,28 @@ export const redirectUrl = async (req, res) => {
 
   const url = await Url.findOne({ shortCode });
 
+  const frontendUrl = (process.env.FRONTEND_URL || "http://localhost:5173").replace(/\/$/, "");
+
   if (!url) {
     // Redirect to frontend Page Not Found / 404
-    return res.redirect("http://localhost:5173/error?msg=not-found");
+    return res.redirect(`${frontendUrl}/error?msg=not-found`);
   }
 
   if (!url.isActive) {
-    return res.redirect("http://localhost:5173/error?msg=inactive");
+    return res.redirect(`${frontendUrl}/error?msg=inactive`);
   }
 
   if (url.expiresAt && new Date(url.expiresAt) < new Date()) {
-    return res.redirect("http://localhost:5173/error?msg=expired");
+    return res.redirect(`${frontendUrl}/error?msg=expired`);
   }
 
   if (url.oneTime && url.used) {
-    return res.redirect("http://localhost:5173/error?msg=expired");
+    return res.redirect(`${frontendUrl}/error?msg=expired`);
   }
 
   if (url.passwordProtected) {
     // Redirect to frontend unlock screen
-    return res.redirect(`http://localhost:5173/unlock/${shortCode}`);
+    return res.redirect(`${frontendUrl}/unlock/${shortCode}`);
   }
 
   // Increment clicks

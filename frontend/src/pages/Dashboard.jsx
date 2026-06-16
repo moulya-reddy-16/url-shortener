@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { api, HOST_URL } from "../utils/api.js";
+import { api, HOST_URL, getShortUrlPrefix } from "../utils/api.js";
 import { useToast } from "../context/ToastContext.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
 import QRCode from "qrcode";
@@ -198,16 +198,8 @@ export default function Dashboard() {
     }
   };
 
-  const getShortUrlPrefix = () => {
-    if (import.meta.env.VITE_API_BASE_URL) {
-      return `${HOST_URL}/api/url/r/`;
-    }
-    const host = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname;
-    return `http://${host}:5000/api/url/r/`;
-  };
-
   const handleCopy = (shortCode, id) => {
-    const fullShortUrl = `${getShortUrlPrefix()}${shortCode}`;
+    const fullShortUrl = `${getShortUrlPrefix(networkIp)}${shortCode}`;
     navigator.clipboard.writeText(fullShortUrl);
     setCopiedId(id);
     toast.success("Copied to clipboard!");
@@ -215,7 +207,7 @@ export default function Dashboard() {
   };
 
   const handleOpenQrModal = (shortCode) => {
-    const fullShortUrl = `${getShortUrlPrefix()}${shortCode}`;
+    const fullShortUrl = `${getShortUrlPrefix(networkIp)}${shortCode}`;
     QRCode.toDataURL(fullShortUrl, { width: 300, margin: 2 }, (err, dataUrl) => {
       if (err) {
         toast.error("Failed to generate QR Code");
@@ -741,7 +733,7 @@ export default function Dashboard() {
                           {/* Short url row */}
                           <div className="mb-2 flex items-center justify-between gap-2">
                             <a 
-                              href={`${getShortUrlPrefix()}${url.shortCode}`} 
+                              href={`${getShortUrlPrefix(networkIp)}${url.shortCode}`} 
                               target="_blank" 
                               rel="noreferrer"
                               className={`text-base font-extrabold hover:text-primary transition-colors flex items-center gap-1.5 truncate ${

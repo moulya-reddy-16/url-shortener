@@ -2,6 +2,17 @@ export const BASE_URL = import.meta.env.VITE_API_BASE_URL || `http://${window.lo
 export const HOST_URL = BASE_URL.replace(/\/api$/, "");
 
 /**
+ * Get the redirection URL prefix for shortcodes.
+ */
+export const getShortUrlPrefix = (networkIp = "localhost") => {
+  if (import.meta.env.VITE_API_BASE_URL) {
+    return `${HOST_URL}/api/url/r/`;
+  }
+  const host = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" ? networkIp : window.location.hostname;
+  return `http://${host}:5000/api/url/r/`;
+};
+
+/**
  * Custom fetch wrapper to handle JSON payloads, cookies (credentials),
  * and standard auth headers cleanly.
  */

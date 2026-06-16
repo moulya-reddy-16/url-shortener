@@ -55,11 +55,18 @@ export default function Profile() {
     const formData = new FormData();
     formData.append("profileImage", file);
 
+    const token = localStorage.getItem("token");
+    const headers = {};
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
+    }
+
     setImageUploading(true);
     try {
       const res = await fetch(`${BASE_URL}/auth/upload-profile-image`, {
         method: "POST",
         credentials: "include",
+        headers,
         body: formData,
       });
 
