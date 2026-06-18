@@ -43,18 +43,29 @@ export default function Analytics() {
   const [hoveredPoint, setHoveredPoint] = useState(null);
 
   useEffect(() => {
-    const fetchAnalytics = async () => {
+    const fetchAnalytics = async (isSilent = false) => {
       try {
         const res = await api(`/url/analytics/${id}`);
         setData(res);
       } catch (err) {
-        setError(err.message || "Failed to load analytics");
-        toast.error("Error loading analytics.");
+        if (!isSilent) {
+          setError(err.message || "Failed to load analytics");
+          toast.error("Error loading analytics.");
+        }
       } finally {
-        setLoading(false);
+        if (!isSilent) {
+          setLoading(false);
+        }
       }
     };
-    fetchAnalytics();
+    
+    // Initial fetch
+    fetchAnalytics(false);
+
+    // Auto-poll every 5 seconds for live analytics updates
+    const intervalId = setInterval(() => fetchAnalytics(true), 5000);
+    
+    return () => clearInterval(intervalId);
   }, [id, toast]);
 
   if (loading) {
